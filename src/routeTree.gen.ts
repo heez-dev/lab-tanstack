@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as IntegrationIndexRouteImport } from './routes/integration/index'
 import { Route as QueryIndexRouteImport } from './routes/query/index'
 import { Route as QueryQuerySubRouteImport } from './routes/query/query-sub'
 import { Route as RouterIndexRouteImport } from './routes/router/index'
@@ -18,6 +19,11 @@ import { Route as RouterRouterSubRouteImport } from './routes/router/router-sub'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegrationIndexRoute = IntegrationIndexRouteImport.update({
+  id: '/integration/',
+  path: '/integration/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QueryIndexRoute = QueryIndexRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/query/query-sub': typeof QueryQuerySubRoute
   '/router/router-sub': typeof RouterRouterSubRoute
+  '/integration/': typeof IntegrationIndexRoute
   '/query/': typeof QueryIndexRoute
   '/router/': typeof RouterIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/query/query-sub': typeof QueryQuerySubRoute
   '/router/router-sub': typeof RouterRouterSubRoute
+  '/integration': typeof IntegrationIndexRoute
   '/query': typeof QueryIndexRoute
   '/router': typeof RouterIndexRoute
 }
@@ -60,20 +68,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/query/query-sub': typeof QueryQuerySubRoute
   '/router/router-sub': typeof RouterRouterSubRoute
+  '/integration/': typeof IntegrationIndexRoute
   '/query/': typeof QueryIndexRoute
   '/router/': typeof RouterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/query/query-sub' | '/router/router-sub' | '/query/' | '/router/'
+    | '/'
+    | '/query/query-sub'
+    | '/router/router-sub'
+    | '/integration/'
+    | '/query/'
+    | '/router/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/query/query-sub' | '/router/router-sub' | '/query' | '/router'
+  to:
+    | '/'
+    | '/query/query-sub'
+    | '/router/router-sub'
+    | '/integration'
+    | '/query'
+    | '/router'
   id:
     | '__root__'
     | '/'
     | '/query/query-sub'
     | '/router/router-sub'
+    | '/integration/'
     | '/query/'
     | '/router/'
   fileRoutesById: FileRoutesById
@@ -82,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   QueryQuerySubRoute: typeof QueryQuerySubRoute
   RouterRouterSubRoute: typeof RouterRouterSubRoute
+  IntegrationIndexRoute: typeof IntegrationIndexRoute
   QueryIndexRoute: typeof QueryIndexRoute
   RouterIndexRoute: typeof RouterIndexRoute
 }
@@ -93,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integration/': {
+      id: '/integration/'
+      path: '/integration'
+      fullPath: '/integration/'
+      preLoaderRoute: typeof IntegrationIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/query/': {
@@ -130,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   QueryQuerySubRoute: QueryQuerySubRoute,
   RouterRouterSubRoute: RouterRouterSubRoute,
+  IntegrationIndexRoute: IntegrationIndexRoute,
   QueryIndexRoute: QueryIndexRoute,
   RouterIndexRoute: RouterIndexRoute,
 }
