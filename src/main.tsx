@@ -9,7 +9,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./app/query-client";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, context: { queryClient } });
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
