@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IntegrationIndexRouteImport } from './routes/integration/index'
 import { Route as QueryIndexRouteImport } from './routes/query/index'
-import { Route as QueryQuerySubRouteImport } from './routes/query/query-sub'
+import { Route as QueryBasicRouteImport } from './routes/query/basic'
 import { Route as RouterIndexRouteImport } from './routes/router/index'
 import { Route as RouterRouterSubRouteImport } from './routes/router/router-sub'
 
@@ -31,9 +31,9 @@ const QueryIndexRoute = QueryIndexRouteImport.update({
   path: '/query/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QueryQuerySubRoute = QueryQuerySubRouteImport.update({
-  id: '/query/query-sub',
-  path: '/query/query-sub',
+const QueryBasicRoute = QueryBasicRouteImport.update({
+  id: '/query/basic',
+  path: '/query/basic',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RouterIndexRoute = RouterIndexRouteImport.update({
@@ -49,7 +49,7 @@ const RouterRouterSubRoute = RouterRouterSubRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/query/query-sub': typeof QueryQuerySubRoute
+  '/query/basic': typeof QueryBasicRoute
   '/router/router-sub': typeof RouterRouterSubRoute
   '/integration/': typeof IntegrationIndexRoute
   '/query/': typeof QueryIndexRoute
@@ -57,7 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/query/query-sub': typeof QueryQuerySubRoute
+  '/query/basic': typeof QueryBasicRoute
   '/router/router-sub': typeof RouterRouterSubRoute
   '/integration': typeof IntegrationIndexRoute
   '/query': typeof QueryIndexRoute
@@ -66,7 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/query/query-sub': typeof QueryQuerySubRoute
+  '/query/basic': typeof QueryBasicRoute
   '/router/router-sub': typeof RouterRouterSubRoute
   '/integration/': typeof IntegrationIndexRoute
   '/query/': typeof QueryIndexRoute
@@ -76,7 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/query/query-sub'
+    | '/query/basic'
     | '/router/router-sub'
     | '/integration/'
     | '/query/'
@@ -84,7 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/query/query-sub'
+    | '/query/basic'
     | '/router/router-sub'
     | '/integration'
     | '/query'
@@ -92,7 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/query/query-sub'
+    | '/query/basic'
     | '/router/router-sub'
     | '/integration/'
     | '/query/'
@@ -101,7 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  QueryQuerySubRoute: typeof QueryQuerySubRoute
+  QueryBasicRoute: typeof QueryBasicRoute
   RouterRouterSubRoute: typeof RouterRouterSubRoute
   IntegrationIndexRoute: typeof IntegrationIndexRoute
   QueryIndexRoute: typeof QueryIndexRoute
@@ -131,11 +131,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QueryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/query/query-sub': {
-      id: '/query/query-sub'
-      path: '/query/query-sub'
-      fullPath: '/query/query-sub'
-      preLoaderRoute: typeof QueryQuerySubRouteImport
+    '/query/basic': {
+      id: '/query/basic'
+      path: '/query/basic'
+      fullPath: '/query/basic'
+      preLoaderRoute: typeof QueryBasicRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/router/': {
@@ -157,7 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  QueryQuerySubRoute: QueryQuerySubRoute,
+  QueryBasicRoute: QueryBasicRoute,
   RouterRouterSubRoute: RouterRouterSubRoute,
   IntegrationIndexRoute: IntegrationIndexRoute,
   QueryIndexRoute: QueryIndexRoute,
